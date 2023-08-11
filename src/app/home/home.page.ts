@@ -7,6 +7,22 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  nome!: string;
+  telefone!: number;
 
+  contatos: any[] = [
+    {"nome":"Bruno Sampietro","telefone": 42998611025},
+    {"nome":"Joao","telefone": 42998611025},
+    {"nome":"Eduardo","telefone": 42998611025},
+    {"nome":"Caldas","telefone": 42998611025},
+
+  ]
+
+  constructor() {
+    
+  }
+  
+  cadastrar(){
+    console.log(this.nome + " " + this.telefone)
+  }
 }
