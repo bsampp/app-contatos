@@ -1,13 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>detalhar</ion-title>
+    <ion-title>Detalhar</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Voltar"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">detalhar</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-list>
+    <ion-item>
+      <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Telefone" placeholder="Insira o telefone" type="number" [(ngModel)]="telefone" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Email" placeholder="Insira o email" type="string" [(ngModel)]="email" disabled="{{edicao}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Genêro" placeholder="Selecione o genêro" [(ngModel)]="genero" disabled="{{edicao}}">
+        <ion-select-option value="Masculino">Masculino</ion-select-option>
+        <ion-select-option value="Feminino">Feminino</ion-select-option>
+        <ion-select-option value="Não Declarado">Não Declarado</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="editar()" disabled="{{edicao}}">Editar</ion-button> 
+  <ion-button expand="block" (click)="excluir()" color="danger" disabled="{{edicao}}">Excluir</ion-button> 
 </ion-content>
+
+

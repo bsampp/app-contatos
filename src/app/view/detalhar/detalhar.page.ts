@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Contato } from 'src/app/model/entities/Contato';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { Contato, Genero } from 'src/app/model/entities/Contato';
 import { ContatoService } from 'src/app/model/services/contato.service';
 
 @Component({
@@ -12,8 +13,48 @@ export class DetalharPage implements OnInit {
 
   contato!: Contato;
   indice!: number;
+  nome!: string;
+  telefone!: number;
+  email!: string;
+  genero!: Genero;
+  edicao: boolean = true;
 
-  constructor(private actRoute: ActivatedRoute, private contatoService: ContatoService) {}
+  constructor(private actRoute: ActivatedRoute,
+     private contatoService: ContatoService,
+     private router:Router,
+     private alertController: AlertController){}
+
+  habilitarEdicao(){
+    if(this.edicao){
+      this.edicao = false
+    }else{
+      this.edicao = true
+    }
+  }
+
+  editar(){
+    if(!this.nome || !this.telefone){
+      this.presentAlert("Erro", "Todos os campos são obrigatórios!");
+      
+    }else{
+      this.presentAlert("Sucesso", "Contato Editado!");
+      let editar: Contato = new Contato(this.nome, this.telefone);
+      if(this.email){
+        editar.email = this.email;
+      }
+      if(this.genero){
+        editar.genero = this.genero;
+      }
+      
+      this.contatoService.editar(editar, this.indice);
+      this.router.navigate(['/home']);
+    }
+  }
+
+  excluir(){
+    this.contatoService.excluir(this.indice);
+    this.router.navigate(['/home'])
+  }
 
   ngOnInit() {
     this.actRoute.params.subscribe((parametros) =>{
@@ -23,6 +64,21 @@ export class DetalharPage implements OnInit {
       }
     })
     console.log(this.contato)
+    this.nome = this.contato.nome
+    this.telefone = this.contato.telefone
+    this.email = this.contato.email
+    this.genero = this.contato.genero
+  }
+
+  async presentAlert(subHeader: string, message: string) {
+    const alert = await this.alertController.create({
+      header: 'Agenda de Contatos',
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 
 }

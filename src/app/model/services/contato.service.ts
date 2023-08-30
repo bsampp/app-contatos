@@ -23,4 +23,12 @@ export class ContatoService {
   public cadastrar(contato: Contato){
     this.lista_contatos.push(contato);
   }
+
+  public editar(contato: Contato, indice: number){
+    this.lista_contatos[indice] = contato;
+  }
+
+  public excluir(indice: number){
+    this.lista_contatos.splice(indice, 1);
+  }
 }

@@ -19,7 +19,7 @@ export class HomePage {
     this.lista_contatos = contatoService.obterTodos();
   }
   
-  editar(indice: number){
+  irParaEditar(indice: number){
     this.router.navigate(['/detalhar', indice])
     console.log("teste")
   }
