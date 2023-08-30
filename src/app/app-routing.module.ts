@@ -10,9 +10,14 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'cadastrar',
     loadChildren: () => import('./view/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
+  },
+  {
+    path: 'detalhar/:indice',
+    loadChildren: () => import('./view/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
 
 ];

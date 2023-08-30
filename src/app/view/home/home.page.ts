@@ -9,6 +9,7 @@ import { ContatoService } from 'src/app/model/services/contato.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
 
   lista_contatos: Contato[] = [];
@@ -17,7 +18,11 @@ export class HomePage {
   constructor(private router: Router, contatoService: ContatoService) {
     this.lista_contatos = contatoService.obterTodos();
   }
-    
+  
+  editar(indice: number){
+    this.router.navigate(['/detalhar', indice])
+    console.log("teste")
+  }
 
   irParaCadastrar(){
     this.router.navigate(['/cadastrar']);
