@@ -99,7 +99,7 @@ export class DetalharPage implements OnInit {
       {
         text: 'Confirmar',
         role: 'confirmar',
-        handler:(acao) =>{
+        handler:() =>{
           this.excluirContato();
         }
       }
