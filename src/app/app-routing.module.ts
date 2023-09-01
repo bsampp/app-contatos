@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
   {
     path: 'home',
@@ -16,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./view/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
   },
   {
-    path: 'detalhar/:indice',
+    path: 'detalhar',
     loadChildren: () => import('./view/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
 

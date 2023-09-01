@@ -51,7 +51,7 @@ export class DetalharPage implements OnInit {
     }
   }
 
-  excluir(){
+  excluirConfirm(){
     this.presentConfirmAlert("Confirmação", "Deseja excluir o contato?", "Ao excluir o contato, não será possível recuperá-lo.")
   }
 
