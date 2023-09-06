@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
-import { ContatoService } from 'src/app/model/services/contato.service';
+import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -17,7 +17,7 @@ export class CadastrarPage implements OnInit {
 
   lista_contatos: Contato[] = [];
 
-  constructor(private alertController: AlertController, private contatoService: ContatoService, private router: Router) {
+  constructor(private alertController: AlertController, private firebase: FirebaseService, private router: Router) {
     let c1: Contato = new Contato ("Bruno Sampietro", 42998610025)
     this.lista_contatos.push(c1)
   }
@@ -27,7 +27,6 @@ export class CadastrarPage implements OnInit {
       this.presentAlert("Erro", "Todos os campos são obrigatórios!");
       
     }else{
-      this.presentAlert("Sucesso", "Contato Cadastrado!");
       let novo: Contato = new Contato(this.nome, this.telefone);
       if(this.email){
         novo.email = this.email;
@@ -35,10 +34,12 @@ export class CadastrarPage implements OnInit {
       if(this.genero){
         novo.genero = this.genero;
       }
-      
-      this.contatoService.cadastrar(novo);
-      console.log(this.lista_contatos)
-      this.router.navigate(['/home']);
+      try{
+      this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Contato Cadastrado!");
+      this.router.navigate(['/home']);});
+      }catch(e){
+        this.presentAlert("Erro", "Erro ao cadastrar contato!");
+      }
     }
   }
   

@@ -9,8 +9,8 @@
 <ion-content>
   <br>
   <hr>
-  <ion-list *ngFor="let contato of lista_contatos; let i = index">
-    <ion-item (click)="irParaEditar(i)">
+  <ion-list *ngFor="let contato of lista_contatos;">
+    <ion-item (click)="irParaEditar(contato)">
       <ion-label>{{contato.nome}}</ion-label>
       <ion-label>{{contato.telefone}}</ion-label>
       <ion-label>{{contato.email}}</ion-label>

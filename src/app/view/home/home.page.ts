@@ -1,8 +1,8 @@
+import { state } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { Contato, Genero } from 'src/app/model/entities/Contato';
-import { ContatoService } from 'src/app/model/services/contato.service';
+import { Contato } from 'src/app/model/entities/Contato';
+import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +15,20 @@ export class HomePage {
   lista_contatos: Contato[] = [];
 
 
-  constructor(private router: Router, contatoService: ContatoService) {
-    this.lista_contatos = contatoService.obterTodos();
-  }
-  
-  irParaEditar(indice: number){
-    this.router.navigate(['/detalhar', indice])
-    console.log("teste")
+  constructor(private router: Router, private firebase: FirebaseService) {
+    this.firebase.read().subscribe(res => {
+      this.lista_contatos = res.map( contato => {
+        return {
+          id: contato.payload.doc.id,
+          ...contato.payload.doc.data() as any
+        } as Contato
+      })
+    })
+  };
+
+  irParaEditar(Contato: Contato){
+    this.router.navigateByUrl('/detalhar', {
+      state: {contato: Contato}});
   }
 
   irParaCadastrar(){

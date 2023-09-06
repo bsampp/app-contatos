@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
-import { ContatoService } from 'src/app/model/services/contato.service';
+import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
   selector: 'app-detalhar',
@@ -12,15 +12,13 @@ import { ContatoService } from 'src/app/model/services/contato.service';
 export class DetalharPage implements OnInit {
 
   contato!: Contato;
-  indice!: number;
   nome!: string;
   telefone!: number;
   email!: string;
   genero!: Genero;
   edicao: boolean = true;
 
-  constructor(private actRoute: ActivatedRoute,
-     private contatoService: ContatoService,
+  constructor( private firebase: FirebaseService,
      private router:Router,
      private alertController: AlertController){}
 
@@ -46,7 +44,7 @@ export class DetalharPage implements OnInit {
         editar.genero = this.genero;
       }
       
-      this.contatoService.editar(editar, this.indice);
+      this.firebase.update(editar, this.contato.id);
       this.router.navigate(['/home']);
     }
   }
@@ -56,19 +54,13 @@ export class DetalharPage implements OnInit {
   }
 
   excluirContato(){
-    this.contatoService.excluir(this.indice);
+    this.firebase.delete(this.contato.id);
     this.router.navigate(['/home'])
     this.presentAlert("Sucesso", "Contato Excluído com Sucesso");
   }
 
   ngOnInit() {
-    this.actRoute.params.subscribe((parametros) =>{
-      if(parametros['indice']){
-        this.indice = parametros['indice'];
-        this.contato = this.contatoService.obterPorIndice(this.indice);
-      }
-    })
-    console.log(this.contato)
+    this.contato = history.state.contato;
     this.nome = this.contato.nome
     this.telefone = this.contato.telefone
     this.email = this.contato.email
