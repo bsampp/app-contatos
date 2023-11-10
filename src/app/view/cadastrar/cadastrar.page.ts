@@ -14,14 +14,21 @@ export class CadastrarPage implements OnInit {
   telefone!: number;
   email!: string;
   genero!: Genero;
-
+  imagem: any;
+  
   lista_contatos: Contato[] = [];
-
+  
   constructor(private alertController: AlertController, private firebase: FirebaseService, private router: Router) {
-    let c1: Contato = new Contato ("Bruno Sampietro", 42998610025)
-    this.lista_contatos.push(c1)
+  
   }
   
+  ngOnInit() {
+  }
+
+public uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
   cadastrar(){
     if(!this.nome || !this.telefone){
       this.presentAlert("Erro", "Todos os campos são obrigatórios!");
@@ -34,14 +41,23 @@ export class CadastrarPage implements OnInit {
       if(this.genero){
         novo.genero = this.genero;
       }
-      try{
-      this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Contato Cadastrado!");
-      this.router.navigate(['/home']);});
-      }catch(e){
-        this.presentAlert("Erro", "Erro ao cadastrar contato!");
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, novo)
       }
+      else{
+        
+        try{
+        this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Contato Cadastrado!");
+        this.router.navigate(['/home']);});
+        }catch(e){
+          this.presentAlert("Erro", "Erro ao cadastrar contato!");
+        }
+      }
+      
     }
   }
+
+
   
   async presentAlert(subHeader: string, message: string) {
     const alert = await this.alertController.create({
@@ -52,8 +68,6 @@ export class CadastrarPage implements OnInit {
     });
 
     await alert.present();
-  }
-  ngOnInit() {
   }
 
 }

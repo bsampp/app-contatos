@@ -21,6 +21,11 @@
       <ion-input label="Email" placeholder="Insira o email" type="string" [(ngModel)]="email"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-button size="default" color="success" shape="round">
+        <input type="file" (change)="uploadFile($event.target)"/>
+      </ion-button>
+    </ion-item>
+    <ion-item>
       <ion-select label="Genêro" placeholder="Selecione o genêro" [(ngModel)]="genero">
         <ion-select-option value="Masculino">Masculino</ion-select-option>
         <ion-select-option value="Feminino">Feminino</ion-select-option>
