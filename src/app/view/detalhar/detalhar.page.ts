@@ -49,9 +49,9 @@ export class DetalharPage implements OnInit {
         editar.genero = this.genero;
       }
       if(this.imagem){
-        editar.id = this.contato.id
         this.firebase.uploadImage(this.imagem, editar);
       }
+      editar.id = this.contato.id
       editar.downloadURL = this.contato.downloadURL;
       this.firebase.update(editar, this.contato.id)
       this.router.navigate(['/home']);

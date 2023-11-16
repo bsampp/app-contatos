@@ -14,7 +14,7 @@
       <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
     </ion-item>
     <ion-item *ngIf="contato.downloadURL != null">
-      <img src="{{contato.downloadURL}}" />
+      <img src="{{contato.downloadURL}}" id="avatar"/>
     </ion-item>
     <ion-item>
       <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
