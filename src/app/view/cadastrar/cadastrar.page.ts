@@ -25,9 +25,9 @@ export class CadastrarPage implements OnInit {
   ngOnInit() {
   }
 
-public uploadFile(imagem: any){
-    this.imagem = imagem.files;
-  }
+  public uploadFile(imagem: any){
+      this.imagem = imagem.files;
+    }
 
   cadastrar(){
     if(!this.nome || !this.telefone){

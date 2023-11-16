@@ -74,10 +74,10 @@ export class FirebaseService {
         uploadedFileURL.subscribe(resp => {
           contato.downloadURL = resp;
           if(!contato.id){
-            this.create(contato)
+            this.createWithImage(contato)
           }
           else{
-            this.update(contato, contato.id);
+            this.updateWithImage(contato, contato.id);
           }
         })
       })

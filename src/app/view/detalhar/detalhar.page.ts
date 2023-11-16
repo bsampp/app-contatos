@@ -17,6 +17,7 @@ export class DetalharPage implements OnInit {
   email!: string;
   genero!: Genero;
   edicao: boolean = true;
+  public imagem: any
 
   constructor( private firebase: FirebaseService,
      private router:Router,
@@ -28,6 +29,10 @@ export class DetalharPage implements OnInit {
     }else{
       this.edicao = true
     }
+  }
+
+  public uploadFile(imagem: any){
+    this.imagem = imagem.files;
   }
 
   editar(){
@@ -43,8 +48,12 @@ export class DetalharPage implements OnInit {
       if(this.genero){
         editar.genero = this.genero;
       }
-      
-      this.firebase.update(editar, this.contato.id);
+      if(this.imagem){
+        editar.id = this.contato.id
+        this.firebase.uploadImage(this.imagem, editar);
+      }
+      editar.downloadURL = this.contato.downloadURL;
+      this.firebase.update(editar, this.contato.id)
       this.router.navigate(['/home']);
     }
   }
