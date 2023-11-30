@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'signin',
     pathMatch: 'full'
   },
   {
@@ -20,6 +20,16 @@ const routes: Routes = [
     path: 'detalhar',
     loadChildren: () => import('./view/contatos/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
+  {
+    path: 'signup',
+    loadChildren: () => import('./view/usuarios/signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'signin',
+    loadChildren: () => import('./view/usuarios/signin/signin.module').then( m => m.SigninPageModule)
+  }
+
+
 
 ];
 
