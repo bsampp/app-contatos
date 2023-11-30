@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./view/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./view/contatos/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
@@ -14,11 +14,11 @@ const routes: Routes = [
   },
   {
     path: 'cadastrar',
-    loadChildren: () => import('./view/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
+    loadChildren: () => import('./view/contatos/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
   },
   {
     path: 'detalhar',
-    loadChildren: () => import('./view/detalhar/detalhar.module').then( m => m.DetalharPageModule)
+    loadChildren: () => import('./view/contatos/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
 
 ];
