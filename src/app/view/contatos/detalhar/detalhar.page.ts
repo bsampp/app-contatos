@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
+import { AlertService } from 'src/app/model/services/common/alert.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class DetalharPage implements OnInit {
 
   constructor( private firebase: FirebaseService,
      private router:Router,
+     private alert: AlertService,
      private alertController: AlertController){}
 
   habilitarEdicao(){
@@ -37,10 +39,10 @@ export class DetalharPage implements OnInit {
 
   editar(){
     if(!this.nome || !this.telefone){
-      this.presentAlert("Erro", "Todos os campos são obrigatórios!");
+      this.alert.presentAlert("Erro", "Todos os campos são obrigatórios!");
       
     }else{
-      this.presentAlert("Sucesso", "Contato Editado com Sucesso!");
+      this.alert.presentAlert("Sucesso", "Contato Editado com Sucesso!");
       let editar: Contato = new Contato(this.nome, this.telefone);
       if(this.email){
         editar.email = this.email;
@@ -65,7 +67,7 @@ export class DetalharPage implements OnInit {
   excluirContato(){
     this.firebase.delete(this.contato.id);
     this.router.navigate(['/home'])
-    this.presentAlert("Sucesso", "Contato Excluído com Sucesso");
+    this.alert.presentAlert("Sucesso", "Contato Excluído com Sucesso");
   }
 
   ngOnInit() {
@@ -76,15 +78,6 @@ export class DetalharPage implements OnInit {
     this.genero = this.contato.genero
   }
 
-  async presentAlert(subHeader: string, message: string) {
-    const alert = await this.alertController.create({
-      header: 'Agenda de Contatos',
-      subHeader: subHeader,
-      message: message,
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
 
   async presentConfirmAlert(titulo : string, subtitulo: string, msg : string)
   {

@@ -12,7 +12,7 @@ import { AlertService } from 'src/app/model/services/common/alert.service';
 export class SigninPage implements OnInit {
   formLogar!: FormGroup;
 
-  constructor(private alertController: AlertService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private alert: AlertService, private router: Router, private formBuilder: FormBuilder) {
     this.formLogar = new FormGroup({
       email: new FormControl(''),
       senha: new FormControl('')
@@ -32,7 +32,7 @@ export class SigninPage implements OnInit {
 
   submitForm(): Boolean{
     if(!this.formLogar.valid){
-      this.alertController.presentAlert('Erro','Erro ao Preencher')
+      this.alert.presentAlert('Erro','Erro ao Preencher')
       return false;
     }else{
       this.logar();
@@ -41,7 +41,7 @@ export class SigninPage implements OnInit {
   }
 
   private logar(){
-    this.alertController.presentAlert('Olá','Seja bem-vindo!')
+    this.alert.presentAlert('Olá','Seja bem-vindo!')
     this.router.navigate(['/home']);
   }
 

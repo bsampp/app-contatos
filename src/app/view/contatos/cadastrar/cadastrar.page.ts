@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
+import { AlertService } from 'src/app/model/services/common/alert.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class CadastrarPage implements OnInit {
   
   lista_contatos: Contato[] = [];
   
-  constructor(private alertController: AlertController, private firebase: FirebaseService, private router: Router) {
+  constructor(private alert: AlertService, private firebase: FirebaseService, private router: Router) {
   
   }
   
@@ -31,7 +32,7 @@ export class CadastrarPage implements OnInit {
 
   cadastrar(){
     if(!this.nome || !this.telefone){
-      this.presentAlert("Erro", "Todos os campos são obrigatórios!");
+      this.alert.presentAlert("Erro", "Todos os campos são obrigatórios!");
       
     }else{
       let novo: Contato = new Contato(this.nome, this.telefone);
@@ -47,10 +48,10 @@ export class CadastrarPage implements OnInit {
       else{
         
         try{
-        this.firebase.create(novo).then(res => {this.presentAlert("Sucesso", "Contato Cadastrado!");
+        this.firebase.create(novo).then(res => {this.alert.presentAlert("Sucesso", "Contato Cadastrado!");
         this.router.navigate(['/home']);});
         }catch(e){
-          this.presentAlert("Erro", "Erro ao cadastrar contato!");
+          this.alert.presentAlert("Erro", "Erro ao cadastrar contato!");
         }
       }
       
@@ -58,16 +59,5 @@ export class CadastrarPage implements OnInit {
   }
 
 
-  
-  async presentAlert(subHeader: string, message: string) {
-    const alert = await this.alertController.create({
-      header: 'Agenda de Contatos',
-      subHeader: subHeader,
-      message: message,
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-  }
 
 }
