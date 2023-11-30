@@ -22,7 +22,7 @@ export class SigninPage implements OnInit {
   ngOnInit() {
     this.formLogar = this.formBuilder.group({
       email: ['',[Validators.required, Validators.email]],
-      senha: ['',[Validators.required, Validators.minLength(8)]]
+      senha: ['',[Validators.required, Validators.minLength(6)]]
     })
   }
 
