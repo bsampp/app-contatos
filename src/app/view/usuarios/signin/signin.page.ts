@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { AlertService } from 'src/app/model/services/common/alert.service';
+import { AlertService } from 'src/app/common/alert.service';
 
 @Component({
   selector: 'app-signin',

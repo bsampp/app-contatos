@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
-import { AlertService } from 'src/app/model/services/common/alert.service';
+import { AlertService } from 'src/app/common/alert.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
 
 @Component({
