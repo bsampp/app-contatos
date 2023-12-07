@@ -17,5 +17,30 @@ export class AlertService {
     });
     await alert.present();
   }
+
+  /*
+  async presentConfirmAlert(titulo : string, subtitulo: string, msg : string)
+  {
+    const alert = await this.alertController.create({
+    header: titulo,
+    subHeader: subtitulo,
+    message: msg,
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancelar',
+        handler: ()=>{}},
+      {
+        text: 'Confirmar',
+        role: 'confirmar',
+        handler:() =>{
+          this.excluirContato();
+        }
+      }
+    ],
+  })
+  await alert.present();
+  }
+  */
   
 }
