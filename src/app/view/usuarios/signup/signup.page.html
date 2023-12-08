@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-list>
-    <form [formGroup]="formCadastrar" (ngSubmit)="submitForm">
+    <form [formGroup]="formCadastrar" (ngSubmit)="submitForm()">
       <ion-item>
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
@@ -40,7 +40,7 @@
       && (this.formCadastrar.get('senha')?.value !=
       this.formCadastrar.get('confSenha')?.value)">As senhas precisam ser iguais!</span> 
 
-      <ion-button expand="full" color="success" type="submit">Entrar</ion-button>
+      <ion-button expand="full" color="success" type="submit">Cadastrar</ion-button>
     </form>
   </ion-list>
 </ion-content>

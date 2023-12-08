@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AlertService } from 'src/app/common/alert.service';
+import { AuthService } from 'src/app/model/services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +13,7 @@ import { AlertService } from 'src/app/common/alert.service';
 export class SigninPage implements OnInit {
   formLogar!: FormGroup;
 
-  constructor(private alert: AlertService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private alert: AlertService, private router: Router, private formBuilder: FormBuilder, private auth: AuthService) {
     this.formLogar = new FormGroup({
       email: new FormControl(''),
       senha: new FormControl('')
@@ -41,8 +42,14 @@ export class SigninPage implements OnInit {
   }
 
   private logar(){
-    this.alert.presentAlert('Olá','Seja bem-vindo!')
-    this.router.navigate(['/home']);
+    this.auth.signIn(this.formLogar.value['email'], this.formLogar.value['senha'])
+    .then(() => {
+      this.router.navigate(['/home']);
+    }
+    ).catch((error) => {
+      this.alert.presentAlert('Erro ao logar', 'Tente Novamente');
+      console.log(error.message);
+    })
   }
 
   logarComGoogle(){

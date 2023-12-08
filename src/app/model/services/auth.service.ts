@@ -22,25 +22,31 @@ export class AuthService {
 
   //Login com email e senha
   public signIn(email: string, password: string){
-
+    return this.fireAuth.signInWithEmailAndPassword(email, password);
   }
 
   public signUpWithEmailPassword(email: string, password: string){
-
+    return this.fireAuth.createUserWithEmailAndPassword(email, password);
   }
 
   public recoverPassword(email: string){
-
+    return this.fireAuth.sendPasswordResetEmail(email);
   }
 
   //Métodos gerais
-  public signOut(){}
-
-  public getUserLogger(){}
-
-  public isLoggedIn(): boolean{
-    return false;
+  public signOut(){
+    return this.fireAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+    })
   }
 
-  public getUserLogged(){}
+  public isLoggedIn(): boolean{
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    return (user !== null) ? true : false;
+  }
+
+  public getUserLogged(){
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    return (user !== null) ? user : null;
+  }
 }
