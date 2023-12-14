@@ -14,11 +14,13 @@ import { FirebaseService } from 'src/app/model/services/firebase.service';
 export class HomePage {
 
   lista_contatos: Contato[] = [];
+  public user: any;
 
 
   constructor(private router: Router, private firebase: FirebaseService, private auth: AuthService) {
     console.log(this.auth.getUserLogged())
-    this.firebase.read().subscribe(res => {
+    this.user = this.auth.getUserLogged();
+    this.firebase.read(this.user.uid).subscribe(res => {
       this.lista_contatos = res.map( contato => {
         return {
           id: contato.payload.doc.id,

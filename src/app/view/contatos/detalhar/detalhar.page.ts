@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { Contato, Genero } from 'src/app/model/entities/Contato';
 import { AlertService } from 'src/app/common/alert.service';
 import { FirebaseService } from 'src/app/model/services/firebase.service';
+import { AuthService } from 'src/app/model/services/auth.service';
 
 @Component({
   selector: 'app-detalhar',
@@ -18,12 +19,16 @@ export class DetalharPage implements OnInit {
   email!: string;
   genero!: Genero;
   edicao: boolean = true;
-  public imagem: any
+  public imagem: any;
+  public user: any;
 
   constructor( private firebase: FirebaseService,
      private router:Router,
      private alert: AlertService,
-     private alertController: AlertController){}
+     private alertController: AlertController,
+     private auth: AuthService){
+      this.user = this.auth.getUserLogged();
+     }
 
   habilitarEdicao(){
     if(this.edicao){
@@ -44,6 +49,8 @@ export class DetalharPage implements OnInit {
     }else{
       this.alert.presentAlert("Sucesso", "Contato Editado com Sucesso!");
       let editar: Contato = new Contato(this.nome, this.telefone);
+      editar.id = this.contato.id
+      editar.uid = this.contato.uid
       if(this.email){
         editar.email = this.email;
       }

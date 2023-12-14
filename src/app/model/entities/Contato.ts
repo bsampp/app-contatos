@@ -5,6 +5,7 @@ export class Contato{
     private _email!: string;
     private _genero!: Genero;
     private _downloadURL: any;
+    private _uid!: string;
 
     
     constructor(nome: string, telefone: number){
@@ -82,6 +83,12 @@ export class Contato{
         this._downloadURL = value;
     }
     
+    public get uid(): string {
+        return this._uid;
+    }
+    public set uid(value: string) {
+        this._uid = value;
+    }
 }
 
 export enum Genero{

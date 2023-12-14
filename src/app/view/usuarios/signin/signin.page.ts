@@ -36,6 +36,7 @@ export class SigninPage implements OnInit {
       this.alert.presentAlert('Erro','Erro ao Preencher')
       return false;
     }else{
+      this.alert.simpleLoader();
       this.logar();
       return true;
     }
@@ -45,15 +46,24 @@ export class SigninPage implements OnInit {
     this.auth.signIn(this.formLogar.value['email'], this.formLogar.value['senha'])
     .then(() => {
       this.router.navigate(['/home']);
+      this.alert.dismissLoader();
     }
     ).catch((error) => {
       this.alert.presentAlert('Erro ao logar', 'Tente Novamente');
+      this.alert.dismissLoader();
       console.log(error.message);
     })
   }
 
   logarComGoogle(){
-
+    this.auth.signInWithGoogle()
+    .then(() => {
+      this.router.navigate(['/home']);
+    }
+    ).catch((error) => {
+      this.alert.presentAlert('Erro ao logar', 'Tente Novamente');
+      console.log(error.message);
+    })
   }
 
   irParaSignup(){

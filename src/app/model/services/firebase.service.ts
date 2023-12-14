@@ -13,8 +13,9 @@ export class FirebaseService {
 
   constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
-  read(){
-    return this.firestore.collection(this.PATH).snapshotChanges();
+  read(uid: string){
+    return this.firestore.collection(this.PATH, ref => ref.where('uid', '==', uid))
+    .snapshotChanges();
   }
 
   create(contato: Contato){
@@ -22,7 +23,8 @@ export class FirebaseService {
       nome: contato.nome,
       telefone: contato.telefone,
       email: contato.email,
-      genero: contato.genero
+      genero: contato.genero,
+      uid: contato.uid
       });
   }
   
@@ -32,7 +34,8 @@ export class FirebaseService {
       telefone: contato.telefone,
       email: contato.email,
       genero: contato.genero,
-      downloadURL: contato.downloadURL
+      downloadURL: contato.downloadURL,
+      uid: contato.uid
       });
   }
 
@@ -41,7 +44,8 @@ export class FirebaseService {
       nome: contato.nome,
       telefone: contato.telefone,
       email: contato.email,
-      genero: contato.genero
+      genero: contato.genero,
+      uid: contato.uid
       });
   
     }
@@ -51,7 +55,8 @@ export class FirebaseService {
       telefone: contato.telefone,
       email: contato.email,
       genero: contato.genero,
-      downloadURL: contato.downloadURL
+      downloadURL: contato.downloadURL,
+      uid: contato.uid
       });
   }
   
